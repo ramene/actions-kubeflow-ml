@@ -5,7 +5,7 @@ FROM pulumi/pulumi
 LABEL "com.github.actions.name"="AWS EKS with Kubeflow ML Platform with Identity"
 LABEL "com.github.actions.description"="Deploy Kubeflow ML to Kubernetes on your favorite cloud using Pulumi"
 LABEL "com.github.actions.icon"="unlock"
-LABEL "com.github.actions.color"="purple"
+LABEL "com.github.actions.color"="red"
 LABEL "repository"="https://github.com/ramene/pulumi-k8s-kubeflow"
 LABEL "homepage"="https://hackmd.io/@ramene/SyZeCixLr"
 LABEL "maintainer"="Ramene Anthony <keybase.io/ramene>"
