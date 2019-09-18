@@ -21,13 +21,10 @@ jobs:
         PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
       with:
         args: up
-    - name: A simple broadcast action
-      id: message
-      uses: ramene/simple-echo-action@master
+    - name: EKS Node Authentication  # FIX: Here we're no longer using our simple action, we're now switching over to using our customized AWS Action container
+      id: kubectl
+      uses: docker://ramene/actions-kubectl # TODO: need to confirm my assumptions here., previously: `ramene/aws/kubectl@master`
       with:
-        broadcast: "broadcast message"
-        some_var: "some_var value defined in workflow"
-    - name: Broadcast time
-      run: echo "The time was ${{ steps.message.outputs.time }}"
-    - name: Pulumi
-      run: echo "Outputs - ${{ steps.message.outputs.foo }}"
+        args: apply -f aws-auth-cm.yaml
+      # env: 
+      #  KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
