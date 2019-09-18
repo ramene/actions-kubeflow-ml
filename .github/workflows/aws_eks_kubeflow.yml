@@ -26,5 +26,5 @@ jobs:
       uses: docker://ramene/actions-kubectl # TODO: need to confirm my assumptions here., previously: `ramene/aws/kubectl@master`
       with:
         args: apply -f aws-auth-cm.yaml
-      # env: 
-      #  KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
+      env: 
+        KUBE_CONFIG_DATA: ''
