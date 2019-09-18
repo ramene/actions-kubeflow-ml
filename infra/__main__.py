@@ -246,28 +246,6 @@ kfp_worker_nodes = cfn.Stack('kfp-worker-nodes',
     disable_rollback=True
 )
 
-# yaml_str = """\
-#   mapRoles: |
-#       username: system:node:{{EC2PrivateDNSName}}
-#       groups:
-#         - system:bootstrappers
-#         - system:nodes
-# """
-
-# yaml = YAML()
-# arn_data = yaml.load(yaml_str)
-# arn_data.insert(1, '- rolearn', kfp_worker_nodes.outputs.__getitem__('NodeInstanceRole'), comment="new key")
-# # yaml.dump(f"arn_data", sys.stdout)
-
-# configMap = ConfigMap('configMap', 
-#     data=arn_data,
-#     metadata={
-#         'name' : 'aws-auth',
-#         'namespace' : 'kube-system'
-#     },
-#     opts=ResourceOptions(parent=kfp_cluster, depends_on=[kfp_cluster])
-# )
-
 labels = {"app": "nginx"}
 
 # Create a canary deployment to test that this cluster works.
