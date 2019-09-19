@@ -22,11 +22,11 @@ jobs:
         args: up
     - name: Worker Node Group Authorization
       id: kubectl
-      uses: docker://ramene/actions-kubectl:v0.0.1 # TODO(@question): Can the whole of the build hold ENV vars?.  I don't like having to pass the env under the same job.
+      uses: docker://ramene/actions-kubectl:v0.0.2 # TODO(@question): Can the whole of the build hold ENV vars?.  I don't like having to pass the env under the same job.
       with:
         args: get cluster-info
       env:
-        AWS_REGION: us-east-1
+        AWS_REGION: ${{ secrets.AWS_REGION }}
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   kubeflow:
