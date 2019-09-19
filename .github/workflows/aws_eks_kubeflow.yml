@@ -5,7 +5,7 @@ jobs:
     name: Orchestration
     runs-on: ubuntu-latest
     steps:
-      uses: actions/checkout@v1
+    - uses: actions/checkout@v1
     - name: Build
       run: docker build . --file Dockerfile --tag pulumi-k8s-kubeflow:$(date +%s)
     - name: Cluster Lifecycle
