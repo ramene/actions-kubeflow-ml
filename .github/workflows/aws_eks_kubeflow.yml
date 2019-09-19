@@ -2,7 +2,7 @@ on: push
 name: aws_eks_kubeflow
 jobs:
   build:
-    name: Build
+    name: Orchestration
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
