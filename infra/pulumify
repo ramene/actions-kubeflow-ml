@@ -69,12 +69,19 @@ esac
 
 # If we're going to update, ensure we've sync'd the repo.
 if [ "$PULUMI_UPDATE" = true ]; then
-    echo "# Synchronizing repo ..."
-    git init
-    git remote add origin https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
-    git config gc.auto 0
-    git fetch --tags --prune --progress --no-recurse-submodules --depth=1 origin +refs/heads/*:refs/remotes/origin/*
-    git checkout --progress --force $GH_BRANCH
+
+    echo "# ******* FORCE ******** removal of all security groups!..."
+    echo "###########################################################"
+    pulumi stack ls
+    aws --version
+    # for i in `aws ec2 describe-security-groups --filters Name=vpc-id,Values="${vpcid}" | grep sg- | sed -E 's/^.*(sg-[a-z0-9]+).*$/\1/' | sort | uniq`; do aws ec2 delete-security-group --group-id $i; done
+
+    # echo "# Synchronizing repo ..."
+    # git init
+    # git remote add origin https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}
+    # git config gc.auto 0
+    # git fetch --tags --prune --progress --no-recurse-submodules --depth=1 origin +refs/heads/*:refs/remotes/origin/*
+    # git checkout --progress --force $GH_BRANCH
 
     # If there is a build command, run it now to prepare the content
     if [ ! -z "${PULUMIFY_BUILD:-}" ]; then
@@ -105,8 +112,10 @@ fi
 
 # Now actuallly perform the desired action (either update or removal).
 if [ "$PULUMI_UPDATE" = true ]; then
-    echo "# Updating ..."
-
+    
+    echo "# This is just lazy coding!!!!!!..."
+    echo "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"
+    
     # If the stack doesn't exist yet, create it.
     if [ $PULUMI_STACK_EXISTS -ne 0 ]; then
         pulumi stack init $PULUMI_STACK_NAME
