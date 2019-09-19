@@ -25,6 +25,6 @@ jobs:
       id: kubectl
       uses: docker://ramene/actions-kubectl # TODO: need to confirm my assumptions here., previously: `ramene/aws/kubectl@master`
       with:
-        args: get cluster-info # TODO: eventually support if we're using kustomize, use `-k`
+        args: get po # TODO: eventually support if we're using kustomize, use `-k`
       env: 
         KUBE_CONFIG_DATA:
