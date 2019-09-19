@@ -25,6 +25,9 @@ jobs:
       uses: docker://ramene/actions-kubectl:v0.0.1 # TODO: need to confirm my assumptions here., previously: `ramene/aws/kubectl@master`
       with:
         args: get po --all-namespaces # TODO: eventually support if we're using kustomize, use `-k`
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   kubeflow:
     name: Deploy Kubeflow
     runs-on: ubuntu-latest
