@@ -26,10 +26,10 @@ jobs:
       with:
         args: get cluster-info # TODO: eventually support if we're using kustomize, use `-k`
   kubeflow:
-    name: Kubeflow
+    name: Deploy Kubeflow
     runs-on: ubuntu-latest
     steps:
-    - name: Helm Deployment
+    - name: CRD
       id: message
       uses: ramene/simple-echo-action@master
       with:
