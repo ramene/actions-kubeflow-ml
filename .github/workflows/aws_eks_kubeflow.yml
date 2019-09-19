@@ -25,17 +25,5 @@ jobs:
       uses: docker://ramene/actions-kubectl # TODO: need to confirm my assumptions here., previously: `ramene/aws/kubectl@master`
       with:
         args: get cluster-info # TODO: eventually support if we're using kustomize, use `-k`
-  kubeflow:
-    name: Deploy Kubeflow
-    runs-on: ubuntu-latest
-    steps:
-    - name: CRD
-      id: message
-      uses: ramene/simple-echo-action@master
-      with:
-        broadcast: "broadcast message"
-        some_var: "some_var value defined in workflow"
-    - name: Broadcast time
-      run: echo "The time was ${{ steps.message.outputs.time }}"
-    - name: Pulumi
-      run: echo "Outputs - ${{ steps.message.outputs.foo }}"
+      env:
+        AWS_REGION: us-east-1
