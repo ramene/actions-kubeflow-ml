@@ -249,29 +249,30 @@ kfp_worker_nodes = cfn.Stack('kfp-worker-nodes',
 labels = {"app": "nginx"}
 
 # Create a canary deployment to test that this cluster works.
-# nginx = Deployment(
-#     "k8s-nginx",
-#     spec={
-#         "selector": {"matchLabels": labels},
-#         "replicas": 1,
-#         "template": {
-#             "metadata": {"labels": labels},
-#             "spec": {"containers": [{"name": "nginx", "image": "nginx"}]},
-#         },
-#     },
-#     __opts__=ResourceOptions(parent=k8s_provider, provider=k8s_provider),
-# )
+nginx = Deployment(
+    "k8s-nginx",
+    spec={
+        "selector": {"matchLabels": labels},
+        "replicas": 1,
+        "template": {
+            "metadata": {"labels": labels},
+            "spec": {"containers": [{"name": "nginx", "image": "nginx"}]},
+        },
+    },
+    __opts__=ResourceOptions(parent=k8s_provider, provider=k8s_provider),
+)
 
-# ingress = Service(
-#     "k8s-nginx",
-#     spec={"type": "LoadBalancer", "selector": labels, "ports": [{"port": 80}]},
-#     __opts__=ResourceOptions(parent=k8s_provider, provider=k8s_provider),
-# )
+ingress = Service(
+    "k8s-nginx",
+    spec={"type": "LoadBalancer", "selector": labels, "ports": [{"port": 80}]},
+    __opts__=ResourceOptions(parent=k8s_provider, provider=k8s_provider),
+)
 
+pulumi.export('vpcId', vpc.id)
 pulumi.export('kubeconfig', k8s_config)
 pulumi.export('cluster_id', kfp_cluster.id)
 pulumi.export('endpoint', kfp_cluster.endpoint)
 pulumi.export('role_arn', kfp_cluster.role_arn)
-# pulumi.export('hostname', Output.all(ingress.status['load_balancer']['ingress'][0]['hostname']))
+pulumi.export('hostname', Output.all(ingress.status['load_balancer']['ingress'][0]['hostname']))
 pulumi.export('NodeInstanceRole', kfp_worker_nodes.outputs.__getitem__('NodeInstanceRole'))
 pulumi.export('NodeSecurityGroup', kfp_worker_nodes.outputs.__getitem__('NodeSecurityGroup'))
