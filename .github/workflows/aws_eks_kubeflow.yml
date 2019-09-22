@@ -34,18 +34,17 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  kubeflow:
-    if: success()
-    name: Deploy Kubeflow
-    runs-on: ubuntu-latest
-    steps:
-    - name: CRD
-      id: message
-      uses: ramene/simple-echo-action@master
-      with:
-        broadcast: "broadcast message"
-        some_var: "some_var value defined in workflow"
-    - name: Broadcast time
-      run: echo "The time was ${{ steps.message.outputs.time }}"
-    - name: Pulumi
-      run: echo "Outputs - ${{ steps.message.outputs.foo }}"
+  # kubeflow:
+  #   name: Deploy Kubeflow
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: CRD
+  #     id: message
+  #     uses: ramene/simple-echo-action@master
+  #     with:
+  #       broadcast: "broadcast message"
+  #       some_var: "some_var value defined in workflow"
+  #   - name: Broadcast time
+  #     run: echo "The time was ${{ steps.message.outputs.time }}"
+  #   - name: Pulumi
+  #     run: echo "Outputs - ${{ steps.message.outputs.foo }}"
