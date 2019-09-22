@@ -18,14 +18,14 @@ jobs:
       id: deploy
       uses: docker://ramene/actions:alpha  # NOTE: @pulumi actions container, tbd as to where this gets moved
       env:
-        PULUMI_CI: up
+        PULUMI_CI: destroy
         PULUMI_ROOT: infra
         AWS_REGION: us-east-1
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
       with:
-        args: up
+        args: destroy
     - name: Worker Node Group Authorization
       id: kubectl
       uses: ramene/actions/kubectl@master  # NOTE:  both options at your disposal; docker://ramene/actions-kubectl:v0.0.2 -or- ramene/actions@awscli.v0.6 -or- ramene/actions@kubectl.v1.15
@@ -34,17 +34,17 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  # kubeflow:
-  #   name: Deploy Kubeflow
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: CRD
-  #     id: message
-  #     uses: ramene/simple-echo-action@master
-  #     with:
-  #       broadcast: "broadcast message"
-  #       some_var: "some_var value defined in workflow"
-  #   - name: Broadcast time
-  #     run: echo "The time was ${{ steps.message.outputs.time }}"
-  #   - name: Pulumi
-  #     run: echo "Outputs - ${{ steps.message.outputs.foo }}"
+# kubeflow:
+#   name: Deploy Kubeflow
+#   runs-on: ubuntu-latest
+#   steps:
+#   - name: CRD
+#     id: message
+#     uses: ramene/simple-echo-action@master
+#     with:
+#       broadcast: "broadcast message"
+#       some_var: "some_var value defined in workflow"
+#   - name: Broadcast time
+#     run: echo "The time was ${{ steps.message.outputs.time }}"
+#   - name: Pulumi
+#     run: echo "Outputs - ${{ steps.message.outputs.foo }}"
