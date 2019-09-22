@@ -16,7 +16,7 @@ jobs:
       run: docker build . --file Dockerfile --tag pulumi-k8s-kubeflow:$(date +%s)
     - name: Cluster Orchestration
       id: deploy
-      uses: docker://ramene/actions:alpha  # @pulumi actions docker
+      uses: docker://ramene/actions:alpha  # NOTE: @pulumi actions container, tbd as to where this gets moved
       env:
         PULUMI_CI: up
         PULUMI_ROOT: infra
@@ -28,7 +28,7 @@ jobs:
         args: up
     - name: Worker Node Group Authorization
       id: kubectl
-      uses: ramene/actions/kubectl@master  #docker://ramene/actions-kubectl:v0.0.2  # eventually, uses: ramene/actions@awscli.v0.6 -or- ramene/actions@kubectl.v1.15
+      uses: ramene/actions/kubectl@master  # NOTE:  both options at your disposal; docker://ramene/actions-kubectl:v0.0.2 -or- ramene/actions@awscli.v0.6 -or- ramene/actions@kubectl.v1.15
       with:
         args: cluster-info
       env:
